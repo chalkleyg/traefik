@@ -1,0 +1,20 @@
+http:
+  routers:
+    leavePlusRouter:
+      service: leavePlus
+      entryPoints:
+        - "web"
+      rule: Host(`rotamaster-leave-plus-ppe-nightly.rotamasterweb.co.uk`)
+      
+  middlewares:
+    foo-add-prefix:
+      addPrefix:
+        prefix: "/LeavePlus/"
+
+  services:
+    leavePlus:
+      loadBalancer:
+        servers:
+          - url: 'http://172.41.0.135:6580/LeavePlus/'
+          # - url: 'http://rotamaster-leave-plus-ppe-nightly.rotamasterweb.co.uk:6580/'
+     # passHostHeader: false
