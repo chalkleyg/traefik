@@ -1,0 +1,25 @@
+## traefik.yml
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+entryPoints:
+  web:
+    address: :80
+
+log:
+  level: "INFO"
+  filePath: "/etc/traefik/log-file.log"
+
+
+# Docker configuration backend
+providers:
+  docker:
+    defaultRule: "Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)"
+  file:
+    filename: /etc/traefik/dynamic.yml
+    watch: true
+
+# API and dashboard configuration
+api:
+  insecure: true
